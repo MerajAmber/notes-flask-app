@@ -23,6 +23,7 @@ services:
 
   flask-app:
     build: .
+    image: meraj0302/notes-flask-app:latest
     container_name: flask-app
     ports:
       - "5000:5000"

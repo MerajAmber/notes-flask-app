@@ -16,14 +16,22 @@ jobs:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v4
-
       - name: Build and push
         uses: docker/build-push-action@v7
         with:
           push: true
           tags: meraj0302/notes-flask-app:latest
+
+
+      - name: Copy files via SSH
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          password: ${{ secrets.EC2_KEY }}
+          port: 22
+          source: "docker-compose.yml"
+          target: /home/ubuntu/.
 
       - name: Run-Application using docker compose
         run: |
