@@ -22,8 +22,9 @@ services:
       start_period: 60s
 
   flask-app:
-    build: .
+    # build: .
     image: meraj0302/notes-flask-app:latest
+    pull_policy: always
     container_name: flask-app
     ports:
       - "5000:5000"
